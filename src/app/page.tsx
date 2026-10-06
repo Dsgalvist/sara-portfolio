@@ -1,11 +1,16 @@
-export default function Home() {
-  return (
-    <main>
-      <section className="flex min-h-screen items-center justify-center">
-        <h1 className="text-6xl font-semibold">
-          SARA ACOSTA GUTIÉRREZ
-        </h1>
-      </section>
-    </main>
-  );
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+export default async function RootPage() {
+  const headersList = await headers();
+  const acceptLanguage = headersList.get("accept-language") ?? "";
+
+  const preferredLanguage = acceptLanguage
+    .split(",")[0]
+    ?.trim()
+    .toLowerCase();
+
+  const lang = preferredLanguage?.startsWith("es") ? "es" : "en";
+
+  redirect(`/${lang}`);
 }
