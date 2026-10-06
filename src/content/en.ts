@@ -2,8 +2,6 @@ export const en = {
   nav: {
     about: "About",
     work: "Work",
-    playground: "Playground",
-    process: "Process",
     journey: "Journey",
     contact: "Contact",
   },

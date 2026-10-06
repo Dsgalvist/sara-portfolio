@@ -2,8 +2,6 @@ export const es = {
   nav: {
     about: "Sobre mí",
     work: "Proyectos",
-    playground: "Explora",
-    process: "Proceso",
     journey: "Trayectoria",
     contact: "Contacto",
   },

@@ -4,6 +4,71 @@ type AboutProps = {
   lang: Language;
 };
 
+const disciplines = [
+  {
+    number: "01",
+    title: "VISUAL",
+    en: [
+      "Graphic Design",
+      "Visual Composition",
+      "Advertising Design",
+      "Digital Catalogs",
+      "Product Presentation",
+    ],
+    es: [
+      "Diseño Gráfico",
+      "Composición Visual",
+      "Diseño Publicitario",
+      "Catálogos Digitales",
+      "Presentación de Producto",
+    ],
+  },
+  {
+    number: "02",
+    title: "MOTION",
+    en: [
+      "Video Editing",
+      "Audiovisual Production",
+      "Motion Graphics",
+      "2D Animation",
+      "Visual Effects",
+    ],
+    es: [
+      "Edición de Video",
+      "Producción Audiovisual",
+      "Motion Graphics",
+      "Animación 2D",
+      "Efectos Visuales",
+    ],
+  },
+  {
+    number: "03",
+    title: "STORY",
+    en: [
+      "Visual Storytelling",
+      "Concept Development",
+      "Storyboarding",
+      "Scriptwriting",
+      "Creative Ideation",
+    ],
+    es: [
+      "Narrativa Visual",
+      "Desarrollo de Conceptos",
+      "Storyboarding",
+      "Guion",
+      "Ideación Creativa",
+    ],
+  },
+  {
+    number: "04",
+    title: "SOUND",
+    en: ["Sound Design", "Foley", "Audiovisual Sound"],
+    es: ["Diseño Sonoro", "Foley", "Sonido Audiovisual"],
+  },
+] as const;
+
+const tools = ["Adobe Photoshop", "DaVinci Resolve", "Canva Pro"];
+
 export default function About({ lang }: AboutProps) {
   return (
     <section
@@ -20,9 +85,11 @@ export default function About({ lang }: AboutProps) {
           px-5 py-24
           sm:px-8 sm:py-32
           lg:px-12 lg:py-40
-      "
+        "
       >
-        {/* Header */}
+        {/* =====================================================
+            SECTION HEADER
+        ===================================================== */}
         <div
           className="
             flex items-start justify-between
@@ -70,14 +137,14 @@ export default function About({ lang }: AboutProps) {
           </p>
         </div>
 
-        {/* Main editorial statement */}
+        {/* =====================================================
+            ABOUT
+        ===================================================== */}
         <div
           className="
             grid gap-14
             py-20
-
             sm:py-28
-
             lg:grid-cols-12
             lg:gap-8
             lg:py-36
@@ -114,9 +181,7 @@ export default function About({ lang }: AboutProps) {
 
                   <br />
 
-                  <span className="ml-[16vw]">
-                    en cada idea.
-                  </span>
+                  <span className="ml-[16vw]">en cada idea.</span>
                 </>
               ) : (
                 <>
@@ -129,9 +194,7 @@ export default function About({ lang }: AboutProps) {
 
                   <br />
 
-                  <span className="ml-[16vw]">
-                    in every idea.
-                  </span>
+                  <span className="ml-[16vw]">in every idea.</span>
                 </>
               )}
             </h2>
@@ -166,123 +229,250 @@ export default function About({ lang }: AboutProps) {
           </div>
         </div>
 
-        {/* Identity strip */}
+        {/* =====================================================
+            CREATIVE UNIVERSE INTRO
+        ===================================================== */}
         <div
           className="
-            grid
-            border-y border-[var(--charcoal)]/10
-
-            sm:grid-cols-2
-            lg:grid-cols-4
+            border-t border-[var(--charcoal)]/10
+            pt-8
           "
         >
           <div
             className="
-              border-b border-[var(--charcoal)]/10
-              py-7
-
-              sm:border-r
-              lg:border-b-0
-              lg:px-6
+              grid gap-12
+              py-14
+              md:grid-cols-12
+              md:items-end
+              lg:py-20
             "
           >
-            <p className="text-[7px] uppercase tracking-[0.2em] text-[var(--wine)]">
-              01 / Visual
-            </p>
+            <div className="md:col-span-4">
+              <p
+                className="
+                  text-[8px] font-semibold uppercase
+                  tracking-[0.24em]
+                  text-[var(--wine)]
+                "
+              >
+                {lang === "es"
+                  ? "Mi universo creativo"
+                  : "My creative universe"}
+              </p>
 
-            <p
-              className="
-                mt-3 font-editorial
-                text-[1.8rem] leading-none
-              "
-            >
-              {lang === "es"
-                ? "Composición"
-                : "Composition"}
-            </p>
+              <p
+                className="
+                  mt-3 max-w-[270px]
+                  text-[11px] leading-[1.7]
+                  text-[var(--charcoal)]/45
+                "
+              >
+                {lang === "es"
+                  ? "Distintas disciplinas conectadas por una misma forma de pensar visualmente."
+                  : "Different disciplines connected by one way of thinking visually."}
+              </p>
+            </div>
+
+            <div className="md:col-span-8">
+              <h3
+                className="
+                  font-editorial
+                  text-[clamp(3.5rem,8vw,7.5rem)]
+                  leading-[0.8]
+                  tracking-[-0.055em]
+                "
+              >
+                {lang === "es" ? (
+                  <>
+                    Diferentes medios,
+                    <br />
+
+                    <span className="ml-[8vw] italic text-[var(--wine)]">
+                      un lenguaje.
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    Different mediums,
+                    <br />
+
+                    <span className="ml-[8vw] italic text-[var(--wine)]">
+                      one language.
+                    </span>
+                  </>
+                )}
+              </h3>
+            </div>
           </div>
 
+          {/* =====================================================
+              DISCIPLINES
+          ===================================================== */}
           <div
             className="
-              border-b border-[var(--charcoal)]/10
-              py-7
-
-              sm:pl-6
-              lg:border-b-0
-              lg:border-r
-              lg:px-6
+              grid
+              border-t border-[var(--charcoal)]/10
+              md:grid-cols-2
+              xl:grid-cols-4
             "
           >
-            <p className="text-[7px] uppercase tracking-[0.2em] text-[var(--wine)]">
-              02 / Story
-            </p>
+            {disciplines.map((discipline, index) => (
+              <article
+                key={discipline.title}
+                className={`
+                  group
+                  min-h-[310px]
+                  border-b border-[var(--charcoal)]/10
+                  py-8
 
-            <p
-              className="
-                mt-3 font-editorial
-                text-[1.8rem] leading-none
-              "
-            >
-              {lang === "es"
-                ? "Narrativa"
-                : "Storytelling"}
-            </p>
+                  md:px-6
+
+                  xl:min-h-[390px]
+                  xl:border-b-0
+
+                  ${
+                    index < disciplines.length - 1
+                      ? "xl:border-r xl:border-[var(--charcoal)]/10"
+                      : ""
+                  }
+                `}
+              >
+                <div className="flex items-center justify-between">
+                  <span
+                    className="
+                      text-[8px]
+                      tracking-[0.14em]
+                      text-[var(--wine)]/60
+                    "
+                  >
+                    {discipline.number}
+                  </span>
+
+                  <span
+                    className="
+                      h-1.5 w-1.5
+                      rounded-full
+                      border border-[var(--wine)]/35
+                      transition-all duration-300
+                      group-hover:bg-[var(--wine)]
+                    "
+                  />
+                </div>
+
+                <h4
+                  className="
+                    mt-10
+                    font-editorial
+                    text-[clamp(2.8rem,4vw,4.5rem)]
+                    leading-none
+                    tracking-[-0.045em]
+                    transition-all duration-300
+
+                    group-hover:italic
+                    group-hover:text-[var(--wine)]
+                  "
+                >
+                  {discipline.title}
+                </h4>
+
+                <div className="mt-10">
+                  {discipline[lang].map((item, itemIndex) => (
+                    <div
+                      key={item}
+                      className="
+                        flex items-center
+                        border-t border-[var(--charcoal)]/[0.07]
+                        py-2.5
+                      "
+                    >
+                      <span
+                        className="
+                          mr-3
+                          text-[7px]
+                          tracking-[0.12em]
+                          text-[var(--charcoal)]/25
+                        "
+                      >
+                        {String(itemIndex + 1).padStart(2, "0")}
+                      </span>
+
+                      <span
+                        className="
+                          text-[11px]
+                          text-[var(--charcoal)]/55
+                          transition-colors duration-300
+
+                          group-hover:text-[var(--charcoal)]/75
+                        "
+                      >
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
           </div>
 
+          {/* =====================================================
+              TOOLS
+          ===================================================== */}
           <div
             className="
-              border-b border-[var(--charcoal)]/10
-              py-7
+              grid gap-8
+              border-t border-[var(--charcoal)]/10
+              py-10
 
-              sm:border-r
-              lg:border-b-0
-              lg:px-6
+              md:grid-cols-[1fr_3fr]
+              md:items-center
             "
           >
-            <p className="text-[7px] uppercase tracking-[0.2em] text-[var(--wine)]">
-              03 / Motion
-            </p>
+            <div>
+              <p
+                className="
+                  text-[8px] font-semibold uppercase
+                  tracking-[0.22em]
+                  text-[var(--wine)]
+                "
+              >
+                {lang === "es" ? "Herramientas" : "Tools"}
+              </p>
+            </div>
 
-            <p
+            <div
               className="
-                mt-3 font-editorial
-                text-[1.8rem] leading-none
+                flex flex-wrap
+                gap-x-7 gap-y-3
+                sm:gap-x-9
               "
             >
-              {lang === "es"
-                ? "Movimiento"
-                : "Movement"}
-            </p>
-          </div>
+              {tools.map((tool) => (
+                <span
+                  key={tool}
+                  className="
+                    font-editorial
+                    text-[clamp(1.7rem,3vw,2.8rem)]
+                    italic
+                    text-[var(--charcoal)]/55
+                    transition-colors duration-300
 
-          <div
-            className="
-              py-7
-              sm:pl-6
-              lg:px-6
-            "
-          >
-            <p className="text-[7px] uppercase tracking-[0.2em] text-[var(--wine)]">
-              04 / Sound
-            </p>
-
-            <p
-              className="
-                mt-3 font-editorial
-                text-[1.8rem] leading-none
-              "
-            >
-              {lang === "es"
-                ? "Sonido"
-                : "Sound"}
-            </p>
+                    hover:text-[var(--wine)]
+                  "
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Closing */}
+        {/* =====================================================
+            CLOSING STATEMENT
+        ===================================================== */}
         <div
           className="
             grid gap-10
+            border-t border-[var(--charcoal)]/10
             pt-20
 
             sm:pt-28
@@ -312,11 +502,11 @@ export default function About({ lang }: AboutProps) {
                 </>
               ) : (
                 <>
-                  It's not only about how it looks.
+                  It&apos;s not only about how it looks.
                   <br />
 
                   <span className="italic text-[var(--wine)]">
-                    It's about how it feels.
+                    It&apos;s about how it feels.
                   </span>
                 </>
               )}
@@ -338,9 +528,7 @@ export default function About({ lang }: AboutProps) {
                 tracking-[0.18em]
               "
             >
-              {lang === "es"
-                ? "Ver mi trabajo"
-                : "See my work"}
+              {lang === "es" ? "Ver mi trabajo" : "See my work"}
 
               <span
                 className="

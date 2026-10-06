@@ -10,8 +10,6 @@ type NavbarProps = {
   labels: {
     about: string;
     work: string;
-    playground: string;
-    process: string;
     journey: string;
     contact: string;
   };
@@ -24,8 +22,6 @@ export default function Navbar({ lang, labels }: NavbarProps) {
   const navLinks = [
     { id: "about", label: labels.about },
     { id: "work", label: labels.work },
-    { id: "playground", label: labels.playground },
-    { id: "process", label: labels.process },
     { id: "journey", label: labels.journey },
     { id: "contact", label: labels.contact },
   ];
