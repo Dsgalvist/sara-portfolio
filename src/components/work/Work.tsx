@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type { Language } from "@/content";
 import { projects } from "@/data/projects";
 
@@ -5,676 +8,937 @@ type WorkProps = {
   lang: Language;
 };
 
+const dialacImages = [
+  "/images/Dialac/lacteo.png",
+  "/images/Dialac/3.png",
+  "/images/Dialac/2.png",
+  "/images/Dialac/NO-PERROS.png",
+  "/images/Dialac/1,2.png",
+];
+
 export default function Work({ lang }: WorkProps) {
-  const featuredProjects = projects.filter(
-    (project) => project.featured
-  );
+  const dialac = projects.find((project) => project.id === "dialac");
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveImage(
+        (current) => (current + 1) % dialacImages.length
+      );
+    }, 3000);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  if (!dialac) {
+    return null;
+  }
+
+  const copy =
+    lang === "es"
+      ? {
+          section: "Trabajo",
+          eyebrow: "Proyecto destacado",
+          title: "Una idea.",
+          titleAccent: "Un proyecto real.",
+          intro:
+            "Este espacio comienza con DIALAC y crecerá con nuevas historias, colaboraciones y proyectos visuales.",
+
+          projectType: "Diseño visual / contenido",
+
+          description:
+            "Una propuesta visual creada para fortalecer la comunicación de DIALAC mediante diseño gráfico, contenido de producto y piezas digitales.",
+
+          role: "Enfoque creativo",
+          roleText:
+            "Diseño visual, contenido de producto y piezas gráficas.",
+
+          contribution: "Dentro del proyecto",
+
+          areas: [
+            {
+              number: "01",
+              title: "Dirección visual",
+              text: "Una estética consistente para conectar las diferentes piezas.",
+            },
+            {
+              number: "02",
+              title: "Contenido de producto",
+              text: "Composición y presentación visual para medios digitales.",
+            },
+            {
+              number: "03",
+              title: "Aplicación digital",
+              text: "Adaptación del contenido visual para la experiencia web.",
+            },
+          ],
+
+          explore: "Visitar DIALAC",
+          current: "01 / PROYECTO ACTUAL",
+          visualLabel: "DIALAC / VISUAL STUDY",
+          future: "Más proyectos próximamente",
+        }
+      : {
+          section: "Work",
+          eyebrow: "Featured project",
+          title: "One idea.",
+          titleAccent: "One real project.",
+          intro:
+            "This space begins with DIALAC and will grow with new stories, collaborations and visual projects.",
+
+          projectType: "Visual design / content",
+
+          description:
+            "A visual proposal created to strengthen DIALAC's communication through graphic design, product content and digital pieces.",
+
+          role: "Creative focus",
+          roleText:
+            "Visual design, product content and graphic pieces.",
+
+          contribution: "Inside the project",
+
+          areas: [
+            {
+              number: "01",
+              title: "Visual direction",
+              text: "A consistent aesthetic connecting the different visual pieces.",
+            },
+            {
+              number: "02",
+              title: "Product content",
+              text: "Composition and visual presentation for digital media.",
+            },
+            {
+              number: "03",
+              title: "Digital application",
+              text: "Visual content adapted for the web experience.",
+            },
+          ],
+
+          explore: "Visit DIALAC",
+          current: "01 / CURRENT PROJECT",
+          visualLabel: "DIALAC / VISUAL STUDY",
+          future: "More projects coming soon",
+        };
 
   return (
     <section
       id="work"
       className="
-        relative overflow-hidden
-        bg-[var(--wine-deep)]
-        text-[var(--ivory)]
+        relative
+        overflow-hidden
+        bg-[var(--ivory)]
+        text-[var(--charcoal)]
       "
     >
-      {/* =====================================================
-          INTRO
-      ===================================================== */}
       <div
         className="
-          mx-auto w-full max-w-[1500px]
-          px-5 pt-24
-          sm:px-8 sm:pt-32
-          lg:px-12 lg:pt-40
+          mx-auto
+          w-full
+          max-w-[1500px]
+          px-5
+          py-12
+
+          sm:px-8
+          sm:py-14
+
+          lg:px-12
+          lg:py-16
         "
       >
+        {/* =====================================================
+            HEADER
+        ===================================================== */}
+
         <div
           className="
-            flex items-start justify-between
-            border-b border-[var(--ivory)]/10
-            pb-7
+            flex
+            items-center
+            justify-between
+            border-b
+            border-[var(--charcoal)]/15
+            pb-4
           "
         >
-          <div>
-            <p
+          <div className="flex items-center gap-4">
+            <span
               className="
-                text-[9px] font-semibold uppercase
-                tracking-[0.24em]
-                text-[var(--rose-muted)]
+                text-[9px]
+                font-semibold
+                tracking-[0.22em]
+                text-[var(--wine)]
               "
             >
-              03 / {lang === "es" ? "Trabajo" : "Work"}
-            </p>
+              03
+            </span>
 
-            <p
+            <span
+              aria-hidden="true"
               className="
-                mt-3 max-w-[300px]
-                text-[11px] leading-[1.7]
-                text-[var(--ivory)]/45
+                h-px
+                w-8
+                bg-[var(--charcoal)]/25
               "
-            >
-              {lang === "es"
-                ? "Proyectos, experimentos y piezas que exploran distintas formas de contar visualmente."
-                : "Projects, experiments and pieces exploring different ways of telling stories visually."}
-            </p>
-          </div>
-
-          <p
-            className="
-              hidden text-right
-              text-[8px] uppercase
-              leading-[1.7]
-              tracking-[0.2em]
-              text-[var(--ivory)]/30
-              md:block
-            "
-          >
-            Selected projects
-            <br />
-            Visual experiments
-            <br />
-            Creative archive
-          </p>
-        </div>
-
-        {/* Main title */}
-        <div className="py-20 sm:py-28 lg:py-32">
-          <p
-            className="
-              text-[8px] uppercase
-              tracking-[0.3em]
-              text-[var(--ivory)]/35
-            "
-          >
-            {lang === "es"
-              ? "Trabajo seleccionado"
-              : "Selected work"}
-          </p>
-
-          <h2
-            className="
-              mt-5
-              font-editorial
-              text-[clamp(4.5rem,12vw,11rem)]
-              leading-[0.74]
-              tracking-[-0.065em]
-            "
-          >
-            Selected
-          </h2>
-
-          <div className="flex justify-end">
-            <h2
-              className="
-                font-editorial
-                text-[clamp(5rem,13vw,12rem)]
-                italic leading-[0.72]
-                tracking-[-0.07em]
-                text-[var(--rose-muted)]
-              "
-            >
-              stories.
-            </h2>
-          </div>
-        </div>
-      </div>
-
-      {/* =====================================================
-          PROJECTS
-      ===================================================== */}
-      <div className="mx-auto w-full max-w-[1500px]">
-        {featuredProjects.map((project, index) => {
-          const reversed = index % 2 !== 0;
-
-          return (
-            <div key={project.id}>
-              <article
-                className="
-                  grid min-h-[75vh]
-                  gap-10
-                  border-t border-[var(--ivory)]/10
-                  px-5 py-16
-
-                  sm:px-8 sm:py-20
-
-                  md:grid-cols-12
-                  md:items-center
-                  md:gap-8
-
-                  lg:min-h-[90vh]
-                  lg:px-12
-                  lg:py-24
-                "
-              >
-                {/* VISUAL */}
-                <div
-                  className={`
-                    md:col-span-7
-                    ${
-                      reversed
-                        ? "md:col-start-6 md:row-start-1"
-                        : "md:col-start-1"
-                    }
-                  `}
-                >
-                  <div
-                    className="
-                      group relative
-                      aspect-[4/3]
-                      overflow-hidden
-                      bg-[var(--wine)]
-                    "
-                  >
-                    {/* Temporary visual */}
-                    <div
-                      className="
-                        absolute inset-0
-                        transition-transform
-                        duration-700
-                        group-hover:scale-[1.02]
-                      "
-                    >
-                      <div
-                        className="
-                          absolute
-                          left-[12%] top-[12%]
-                          h-[72%] w-[58%]
-                          -rotate-[5deg]
-                          border border-[var(--ivory)]/15
-                          bg-[var(--charcoal)]/20
-                          transition-transform duration-700
-
-                          group-hover:-rotate-[2deg]
-                        "
-                      />
-
-                      <div
-                        className="
-                          absolute
-                          bottom-[10%] right-[9%]
-                          h-[58%] w-[48%]
-                          rotate-[5deg]
-                          border border-[var(--rose-muted)]/20
-                          bg-[var(--wine-deep)]/70
-                          transition-transform duration-700
-
-                          group-hover:rotate-[2deg]
-                        "
-                      />
-
-                      <div
-                        className="
-                          absolute inset-0
-                          flex items-center justify-center
-                        "
-                      >
-                        <span
-                          className="
-                            relative z-10
-                            font-editorial
-                            text-[clamp(3rem,7vw,7rem)]
-                            italic
-                          "
-                        >
-                          {project.title}
-                        </span>
-                      </div>
-                    </div>
-
-                    <span
-                      className="
-                        absolute left-4 top-4
-                        text-[8px]
-                        tracking-[0.16em]
-                        text-[var(--ivory)]/50
-
-                        sm:left-5 sm:top-5
-                      "
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    <span
-                      className="
-                        absolute bottom-4 right-4
-                        text-[8px] uppercase
-                        tracking-[0.18em]
-                        text-[var(--ivory)]/45
-
-                        sm:bottom-5 sm:right-5
-                      "
-                    >
-                      {project.year}
-                    </span>
-                  </div>
-                </div>
-
-                {/* INFO */}
-                <div
-                  className={`
-                    md:col-span-4
-
-                    ${
-                      reversed
-                        ? "md:col-start-1 md:row-start-1"
-                        : "md:col-start-9"
-                    }
-                  `}
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="
-                        text-[8px]
-                        tracking-[0.16em]
-                        text-[var(--rose-muted)]
-                      "
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    <span
-                      aria-hidden="true"
-                      className="
-                        h-px w-8
-                        bg-[var(--rose-muted)]/40
-                      "
-                    />
-
-                    <span
-                      className="
-                        text-[8px] uppercase
-                        tracking-[0.18em]
-                        text-[var(--ivory)]/35
-                      "
-                    >
-                      {project.type[lang]}
-                    </span>
-                  </div>
-
-                  <h3
-                    className="
-                      mt-6
-                      font-editorial
-                      text-[clamp(3rem,6vw,6rem)]
-                      leading-[0.85]
-                      tracking-[-0.045em]
-                    "
-                  >
-                    {project.title}
-                  </h3>
-
-                  <p
-                    className="
-                      mt-6 max-w-[360px]
-                      text-[12px]
-                      leading-[1.8]
-                      text-[var(--ivory)]/50
-                    "
-                  >
-                    {project.description[lang]}
-                  </p>
-
-                  <button
-                    type="button"
-                    className="
-                      group mt-8
-                      flex items-center gap-4
-                      text-[9px] font-semibold uppercase
-                      tracking-[0.18em]
-                    "
-                  >
-                    {lang === "es"
-                      ? "Explorar proyecto"
-                      : "Explore project"}
-
-                    <span
-                      className="
-                        flex h-10 w-10
-                        items-center justify-center
-                        rounded-full
-                        border border-[var(--ivory)]/20
-                        transition-all duration-300
-
-                        group-hover:border-[var(--rose-muted)]
-                        group-hover:bg-[var(--rose-muted)]
-                        group-hover:text-[var(--wine-deep)]
-                      "
-                    >
-                      ↗
-                    </span>
-                  </button>
-                </div>
-              </article>
-
-              {/* =============================================
-                  EXPERIMENTAL BREAK
-                  After project 2
-              ============================================== */}
-              {index === 1 && (
-                <div
-                  className="
-                    relative
-                    min-h-[650px]
-                    overflow-hidden
-                    border-t border-[var(--ivory)]/10
-                    bg-[var(--charcoal)]
-
-                    sm:min-h-[760px]
-                    lg:min-h-[900px]
-                  "
-                >
-                  {/* Giant typography */}
-                  <div
-                    aria-hidden="true"
-                    className="
-                      absolute inset-0
-                      flex flex-col justify-center
-                      overflow-hidden
-                    "
-                  >
-                    <p
-                      className="
-                        -ml-[3vw]
-                        whitespace-nowrap
-                        font-editorial
-                        text-[clamp(6rem,20vw,20rem)]
-                        leading-[0.68]
-                        tracking-[-0.075em]
-                        text-[var(--ivory)]/[0.04]
-                      "
-                    >
-                      VISUAL
-                    </p>
-
-                    <p
-                      className="
-                        ml-[10vw]
-                        whitespace-nowrap
-                        font-editorial
-                        text-[clamp(6rem,20vw,20rem)]
-                        italic leading-[0.72]
-                        tracking-[-0.075em]
-                        text-[var(--wine)]
-                        opacity-30
-                      "
-                    >
-                      playground.
-                    </p>
-                  </div>
-
-                  {/* Piece 1 */}
-                  <div
-                    className="
-                      absolute
-                      left-[5%] top-[14%]
-                      h-[30%] w-[32%]
-                      -rotate-[6deg]
-                      border border-[var(--ivory)]/10
-                      bg-[var(--wine)]
-                      transition-transform duration-500
-
-                      hover:z-20
-                      hover:rotate-[-2deg]
-                      hover:scale-[1.03]
-
-                      md:left-[8%]
-                      md:h-[37%]
-                      md:w-[24%]
-                    "
-                  >
-                    <span
-                      className="
-                        absolute bottom-3 left-3
-                        text-[7px] uppercase
-                        tracking-[0.18em]
-                        text-[var(--ivory)]/50
-                      "
-                    >
-                      Visual study / 01
-                    </span>
-                  </div>
-
-                  {/* Piece 2 */}
-                  <div
-                    className="
-                      absolute
-                      right-[5%] top-[10%]
-                      h-[25%] w-[38%]
-                      rotate-[5deg]
-                      border border-[var(--ivory)]/10
-                      bg-[var(--wine-deep)]
-                      transition-transform duration-500
-
-                      hover:z-20
-                      hover:rotate-[1deg]
-                      hover:scale-[1.03]
-
-                      md:right-[10%]
-                      md:h-[31%]
-                      md:w-[29%]
-                    "
-                  >
-                    <span
-                      className="
-                        absolute bottom-3 left-3
-                        text-[7px] uppercase
-                        tracking-[0.18em]
-                        text-[var(--ivory)]/50
-                      "
-                    >
-                      Frame / 02
-                    </span>
-                  </div>
-
-                  {/* Piece 3 */}
-                  <div
-                    className="
-                      absolute
-                      bottom-[8%] left-[15%]
-                      h-[24%] w-[40%]
-                      rotate-[4deg]
-                      border border-[var(--rose-muted)]/15
-                      bg-[var(--wine-deep)]
-                      transition-transform duration-500
-
-                      hover:z-20
-                      hover:rotate-[1deg]
-                      hover:scale-[1.03]
-
-                      md:left-[22%]
-                      md:h-[29%]
-                      md:w-[30%]
-                    "
-                  >
-                    <span
-                      className="
-                        absolute bottom-3 left-3
-                        text-[7px] uppercase
-                        tracking-[0.18em]
-                        text-[var(--ivory)]/50
-                      "
-                    >
-                      Story / 03
-                    </span>
-                  </div>
-
-                  {/* Piece 4 */}
-                  <div
-                    className="
-                      absolute
-                      bottom-[12%] right-[5%]
-                      h-[29%] w-[28%]
-                      -rotate-[5deg]
-                      border border-[var(--ivory)]/10
-                      bg-[var(--wine)]
-                      transition-transform duration-500
-
-                      hover:z-20
-                      hover:rotate-[-1deg]
-                      hover:scale-[1.03]
-
-                      md:right-[12%]
-                      md:h-[35%]
-                      md:w-[21%]
-                    "
-                  >
-                    <span
-                      className="
-                        absolute bottom-3 left-3
-                        text-[7px] uppercase
-                        tracking-[0.18em]
-                        text-[var(--ivory)]/50
-                      "
-                    >
-                      Motion / 04
-                    </span>
-                  </div>
-
-                  {/* Central text */}
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute left-1/2 top-1/2
-                      z-10
-                      w-[80%]
-                      -translate-x-1/2
-                      -translate-y-1/2
-                      text-center
-
-                      md:w-[60%]
-                    "
-                  >
-                    <p
-                      className="
-                        text-[8px] uppercase
-                        tracking-[0.3em]
-                        text-[var(--rose-muted)]
-                      "
-                    >
-                      {lang === "es"
-                        ? "Fuera del frame"
-                        : "Outside the frame"}
-                    </p>
-
-                    <p
-                      className="
-                        mt-5
-                        font-editorial
-                        text-[clamp(3rem,8vw,7rem)]
-                        leading-[0.82]
-                        tracking-[-0.05em]
-                      "
-                    >
-                      {lang === "es" ? (
-                        <>
-                          Ideas que también
-                          <br />
-
-                          <span className="italic text-[var(--rose-muted)]">
-                            merecen existir.
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          Ideas that also
-                          <br />
-
-                          <span className="italic text-[var(--rose-muted)]">
-                            deserve to exist.
-                          </span>
-                        </>
-                      )}
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* =====================================================
-          END
-      ===================================================== */}
-      <div
-        className="
-          mx-auto w-full max-w-[1500px]
-          px-5 pb-24 pt-16
-          sm:px-8 sm:pb-32
-          lg:px-12 lg:pb-40
-        "
-      >
-        <div
-          className="
-            flex flex-col gap-10
-            border-t border-[var(--ivory)]/10
-            pt-10
-
-            md:flex-row
-            md:items-end
-            md:justify-between
-          "
-        >
-          <p
-            className="
-              max-w-[700px]
-              font-editorial
-              text-[clamp(3rem,6vw,6rem)]
-              leading-[0.9]
-              tracking-[-0.045em]
-            "
-          >
-            {lang === "es" ? (
-              <>
-                Cada proyecto empieza
-                <br />
-
-                <span className="italic text-[var(--rose-muted)]">
-                  con algo por contar.
-                </span>
-              </>
-            ) : (
-              <>
-                Every project begins
-                <br />
-
-                <span className="italic text-[var(--rose-muted)]">
-                  with something to say.
-                </span>
-              </>
-            )}
-          </p>
-
-          <a
-            href="#journey"
-            className="
-              group flex w-fit
-              items-center gap-4
-              text-[9px] font-semibold uppercase
-              tracking-[0.18em]
-            "
-          >
-            {lang === "es"
-              ? "Conoce mi recorrido"
-              : "Discover my journey"}
+            />
 
             <span
               className="
-                flex h-10 w-10
-                items-center justify-center
-                rounded-full
-                border border-[var(--ivory)]/20
-                transition-all duration-300
-
-                group-hover:bg-[var(--rose-muted)]
-                group-hover:text-[var(--wine-deep)]
+                text-[9px]
+                font-semibold
+                uppercase
+                tracking-[0.22em]
+                text-[var(--charcoal)]/65
               "
             >
-              ↓
+              {copy.section}
             </span>
-          </a>
+          </div>
+
+          <span
+            className="
+              hidden
+              text-[8px]
+              font-medium
+              uppercase
+              tracking-[0.2em]
+              text-[var(--charcoal)]/35
+
+              sm:block
+            "
+          >
+            {copy.current}
+          </span>
+        </div>
+
+        {/* =====================================================
+            INTRO
+        ===================================================== */}
+
+        <div
+          className="
+            grid
+            gap-6
+            py-8
+
+            md:grid-cols-12
+            md:items-end
+            md:gap-10
+
+            lg:py-10
+          "
+        >
+          <div className="md:col-span-8">
+            <p
+              className="
+                mb-3
+                text-[9px]
+                font-semibold
+                uppercase
+                tracking-[0.24em]
+                text-[var(--wine)]
+              "
+            >
+              {copy.eyebrow}
+            </p>
+
+            <h2
+              className="
+                max-w-[780px]
+                text-[clamp(2.8rem,5.2vw,5.7rem)]
+                font-medium
+                leading-[0.88]
+                tracking-[-0.055em]
+              "
+            >
+              {copy.title}
+
+              <span
+                className="
+                  ml-[0.18em]
+                  font-editorial
+                  font-normal
+                  italic
+                  text-[var(--wine)]
+                "
+              >
+                {copy.titleAccent}
+              </span>
+            </h2>
+          </div>
+
+          <div className="md:col-span-4">
+            <p
+              className="
+                max-w-[390px]
+                text-[13px]
+                leading-[1.65]
+                text-[var(--charcoal)]/60
+
+                lg:text-[14px]
+              "
+            >
+              {copy.intro}
+            </p>
+          </div>
+        </div>
+
+        {/* =====================================================
+            DIALAC PROJECT
+        ===================================================== */}
+
+        <article
+          className="
+            grid
+            overflow-hidden
+            border
+            border-[var(--charcoal)]/15
+
+            md:grid-cols-12
+          "
+        >
+          {/* ===================================================
+              DIALAC SLIDESHOW
+          =================================================== */}
+
+          <div
+            className="
+              group
+              relative
+              min-h-[430px]
+              overflow-hidden
+              bg-[#171416]
+
+              sm:min-h-[520px]
+
+              md:col-span-7
+              md:min-h-[560px]
+
+              lg:col-span-8
+              lg:min-h-[620px]
+
+              xl:min-h-[650px]
+            "
+          >
+            {/* BACKGROUND BLURRED IMAGE */}
+
+            {dialacImages.map((src, index) => {
+              const isActive = index === activeImage;
+
+              return (
+                <img
+                  key={`background-${src}`}
+                  src={src}
+                  alt=""
+                  aria-hidden="true"
+                  className={`
+                    pointer-events-none
+                    absolute
+                    -inset-[5%]
+                    h-[110%]
+                    w-[110%]
+                    object-cover
+                    blur-[24px]
+                    saturate-[0.8]
+
+                    transition-all
+                    duration-[1000ms]
+                    ease-[cubic-bezier(0.22,1,0.36,1)]
+
+                    ${
+                      isActive
+                        ? "scale-110 opacity-30"
+                        : "scale-[1.15] opacity-0"
+                    }
+                  `}
+                />
+              );
+            })}
+
+            {/* DARK BACKGROUND CONTROL */}
+
+            <div
+              aria-hidden="true"
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                z-[1]
+                bg-[#171416]/35
+              "
+            />
+
+            {/* COMPLETE IMAGES */}
+
+            {dialacImages.map((src, index) => {
+              const isActive = index === activeImage;
+
+              return (
+                <img
+                  key={src}
+                  src={src}
+                  alt={
+                    isActive
+                      ? `DIALAC visual ${index + 1}`
+                      : ""
+                  }
+                  aria-hidden={!isActive}
+                  className={`
+                    absolute
+                    inset-0
+                    z-[2]
+                    h-full
+                    w-full
+                    object-contain
+
+                    transition-all
+                    duration-[1000ms]
+                    ease-[cubic-bezier(0.22,1,0.36,1)]
+
+                    ${
+                      isActive
+                        ? "scale-100 opacity-100"
+                        : "scale-[0.985] opacity-0"
+                    }
+                  `}
+                />
+              );
+            })}
+
+            {/* SUBTLE OVERLAY */}
+
+            <div
+              aria-hidden="true"
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+                z-10
+                bg-gradient-to-t
+                from-[#16090d]/25
+                via-transparent
+                to-[#16090d]/10
+              "
+            />
+
+            {/* VISUAL LABEL */}
+
+            <div
+              className="
+                pointer-events-none
+                absolute
+                left-1/2
+                top-5
+                z-20
+                -translate-x-1/2
+              "
+            >
+              <p
+                className="
+                  whitespace-nowrap
+                  text-[7px]
+                  font-semibold
+                  uppercase
+                  tracking-[0.28em]
+                  text-white/80
+                  drop-shadow-md
+                "
+              >
+                {copy.visualLabel}
+              </p>
+            </div>
+
+            {/* TOP LEFT */}
+
+            <span
+              className="
+                absolute
+                left-5
+                top-5
+                z-20
+                text-[7px]
+                font-semibold
+                tracking-[0.18em]
+                text-white/85
+                drop-shadow-md
+              "
+            >
+              01 / 01
+            </span>
+
+            {/* CATEGORY */}
+
+            <span
+              className="
+                absolute
+                bottom-5
+                left-5
+                z-20
+                hidden
+                text-[7px]
+                uppercase
+                tracking-[0.2em]
+                text-white/85
+                drop-shadow-md
+
+                sm:block
+              "
+            >
+              Visual / Content
+            </span>
+
+            {/* YEAR */}
+
+            <span
+              className="
+                absolute
+                bottom-5
+                right-5
+                z-20
+                text-[7px]
+                tracking-[0.18em]
+                text-white/85
+                drop-shadow-md
+              "
+            >
+              {dialac.year}
+            </span>
+
+            {/* SLIDE INDICATORS */}
+
+            <div
+              className="
+                absolute
+                bottom-5
+                left-1/2
+                z-30
+                flex
+                -translate-x-1/2
+                items-center
+                gap-1.5
+              "
+            >
+              {dialacImages.map((_, index) => {
+                const isActive = index === activeImage;
+
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setActiveImage(index)}
+                    aria-label={`DIALAC image ${index + 1}`}
+                    className={`
+                      h-[2px]
+                      cursor-pointer
+                      transition-all
+                      duration-500
+
+                      ${
+                        isActive
+                          ? "w-8 bg-white"
+                          : "w-3 bg-white/40 hover:bg-white/70"
+                      }
+                    `}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ===================================================
+    PROJECT INFORMATION
+=================================================== */}
+
+<div
+  className="
+    flex
+    flex-col
+    bg-[var(--ivory)]
+    p-6
+
+    sm:p-8
+
+    md:col-span-5
+
+    lg:col-span-4
+    lg:p-9
+
+    xl:p-10
+  "
+>
+  {/* TYPE */}
+
+  <div className="flex items-center gap-3">
+    <span
+      className="
+        text-[9px]
+        font-semibold
+        tracking-[0.2em]
+        text-[var(--wine)]
+      "
+    >
+      01
+    </span>
+
+    <span
+      aria-hidden="true"
+      className="
+        h-px
+        w-7
+        bg-[var(--wine)]/45
+      "
+    />
+
+    <span
+      className="
+        text-[9px]
+        font-medium
+        uppercase
+        tracking-[0.17em]
+        text-[var(--charcoal)]/65
+      "
+    >
+      {copy.projectType}
+    </span>
+  </div>
+
+  {/* TITLE */}
+
+  <h3
+    className="
+      mt-5
+      text-[clamp(3.4rem,5vw,5.3rem)]
+      font-medium
+      leading-none
+      tracking-[-0.06em]
+      text-[var(--charcoal)]
+    "
+  >
+    DIALAC
+  </h3>
+
+  {/* DESCRIPTION */}
+
+  <p
+    className="
+      mt-6
+      max-w-[430px]
+      text-[14px]
+      leading-[1.75]
+      text-[var(--charcoal)]/80
+
+      xl:text-[15px]
+    "
+  >
+    {copy.description}
+  </p>
+
+  {/* CREATIVE FOCUS */}
+
+  <div
+    className="
+      mt-7
+      border-t
+      border-[var(--charcoal)]/15
+      pt-6
+    "
+  >
+    <p
+      className="
+        text-[9px]
+        font-semibold
+        uppercase
+        tracking-[0.22em]
+        text-[var(--wine)]
+      "
+    >
+      {copy.role}
+    </p>
+
+    <p
+      className="
+        mt-2.5
+        text-[13px]
+        leading-[1.65]
+        text-[var(--charcoal)]/70
+      "
+    >
+      {copy.roleText}
+    </p>
+
+    {/* TAGS */}
+
+    <div
+      className="
+        mt-5
+        flex
+        flex-wrap
+        gap-2
+      "
+    >
+      {[
+        lang === "es"
+          ? "Diseño gráfico"
+          : "Graphic design",
+        lang === "es"
+          ? "Contenido"
+          : "Content",
+        lang === "es"
+          ? "Producto"
+          : "Product",
+      ].map((tag) => (
+        <span
+          key={tag}
+          className="
+            rounded-full
+            border
+            border-[var(--charcoal)]/25
+            px-3.5
+            py-2
+            text-[8px]
+            font-medium
+            uppercase
+            tracking-[0.12em]
+            text-[var(--charcoal)]/70
+          "
+        >
+          {tag}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  {/* =================================================
+      PROJECT AREAS
+  ================================================= */}
+
+  <div
+    className="
+      mt-7
+      border-t
+      border-[var(--charcoal)]/15
+      pt-6
+    "
+  >
+    <p
+      className="
+        mb-5
+        text-[9px]
+        font-semibold
+        uppercase
+        tracking-[0.22em]
+        text-[var(--wine)]
+      "
+    >
+      {copy.contribution}
+    </p>
+
+    <div
+      className="
+        grid
+        border-t
+        border-[var(--charcoal)]/15
+      "
+    >
+      {copy.areas.map((area) => (
+        <div
+          key={area.number}
+          className="
+            grid
+            grid-cols-[34px_1fr]
+            gap-3
+            border-b
+            border-[var(--charcoal)]/15
+            py-4
+          "
+        >
+          <span
+            className="
+              pt-[2px]
+              text-[8px]
+              font-semibold
+              tracking-[0.14em]
+              text-[var(--wine)]
+            "
+          >
+            {area.number}
+          </span>
+
+          <div>
+            <p
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.14em]
+                text-[var(--charcoal)]/90
+
+                xl:text-[11px]
+              "
+            >
+              {area.title}
+            </p>
+
+            <p
+              className="
+                mt-1.5
+                max-w-[350px]
+                text-[11px]
+                leading-[1.6]
+                text-[var(--charcoal)]/65
+
+                xl:text-[12px]
+              "
+            >
+              {area.text}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* =================================================
+      META
+  ================================================= */}
+
+  <div
+    className="
+      mt-5
+      flex
+      items-center
+      justify-between
+      gap-4
+    "
+  >
+    <span
+      className="
+        text-[8px]
+        font-semibold
+        uppercase
+        tracking-[0.18em]
+        text-[var(--charcoal)]/60
+      "
+    >
+      2026
+    </span>
+
+    <span
+      className="
+        text-[8px]
+        font-semibold
+        uppercase
+        tracking-[0.18em]
+        text-[var(--charcoal)]/60
+      "
+    >
+      Colombia
+    </span>
+  </div>
+
+  {/* =================================================
+      DIALAC WEBSITE
+  ================================================= */}
+
+  <a
+    href="https://dialac.co/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="
+      group
+      mt-7
+      flex
+      w-fit
+      items-center
+      gap-4
+      text-[10px]
+      font-semibold
+      uppercase
+      tracking-[0.18em]
+      text-[var(--charcoal)]
+    "
+  >
+    <span
+      className="
+        border-b
+        border-[var(--charcoal)]/50
+        pb-1.5
+        transition-colors
+        duration-300
+
+        group-hover:border-[var(--wine)]
+        group-hover:text-[var(--wine)]
+      "
+    >
+      {copy.explore}
+    </span>
+
+    <span
+      className="
+        flex
+        h-10
+        w-10
+        items-center
+        justify-center
+        rounded-full
+        bg-[var(--wine)]
+        text-[14px]
+        text-[var(--ivory)]
+        transition-all
+        duration-300
+
+        group-hover:rotate-45
+        group-hover:scale-105
+      "
+    >
+      ↗
+    </span>
+  </a>
+</div>
+        </article>
+
+        {/* =====================================================
+            FUTURE PROJECTS
+        ===================================================== */}
+
+        <div
+          className="
+            flex
+            items-center
+            gap-4
+            border-b
+            border-[var(--charcoal)]/15
+            py-5
+          "
+        >
+          <span
+            className="
+              h-1.5
+              w-1.5
+              rounded-full
+              bg-[var(--wine)]
+            "
+          />
+
+          <p
+            className="
+              text-[8px]
+              font-semibold
+              uppercase
+              tracking-[0.2em]
+              text-[var(--charcoal)]/40
+            "
+          >
+            {copy.future}
+          </p>
+
+          <span
+            aria-hidden="true"
+            className="
+              h-px
+              flex-1
+              bg-[var(--charcoal)]/10
+            "
+          />
         </div>
       </div>
     </section>

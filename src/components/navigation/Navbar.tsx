@@ -17,7 +17,9 @@ type NavbarProps = {
 
 export default function Navbar({ lang, labels }: NavbarProps) {
   const pathname = usePathname();
+
   const [open, setOpen] = useState(false);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
 
   const navLinks = [
     { id: "about", label: labels.about },
@@ -33,6 +35,10 @@ export default function Navbar({ lang, labels }: NavbarProps) {
     return segments.join("/") || `/${next}`;
   }
 
+  /* =========================================================
+     CLOSE MENU WITH ESCAPE
+  ========================================================= */
+
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -47,6 +53,10 @@ export default function Navbar({ lang, labels }: NavbarProps) {
     };
   }, []);
 
+  /* =========================================================
+     CLOSE MOBILE MENU WHEN ENTERING DESKTOP
+  ========================================================= */
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1280) {
@@ -58,6 +68,42 @@ export default function Navbar({ lang, labels }: NavbarProps) {
 
     return () => {
       window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  /* =========================================================
+     DETECT HERO
+
+     While #home is visible:
+     - Desktop navbar = transparent.
+
+     Once #home leaves:
+     - Desktop navbar = original ivory.
+
+     Mobile/tablet remain unchanged.
+  ========================================================= */
+
+  useEffect(() => {
+    const hero = document.getElementById("home");
+
+    if (!hero) {
+      setIsHeroVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.01,
+      }
+    );
+
+    observer.observe(hero);
+
+    return () => {
+      observer.disconnect();
     };
   }, []);
 
@@ -80,7 +126,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
       "
     >
       <div
-        className="
+        className={`
           relative mx-auto
           flex h-[76px]
           max-w-[1400px]
@@ -96,16 +142,33 @@ export default function Navbar({ lang, labels }: NavbarProps) {
           xl:gap-3
           xl:rounded-[20px]
           xl:border
-          xl:border-[var(--wine)]/15
-          xl:bg-[var(--ivory)]/90
           xl:px-5
-          xl:shadow-[0_22px_65px_rgba(42,13,21,.10)]
-          xl:backdrop-blur-2xl
-        "
+
+          xl:transition-[background-color,border-color,box-shadow,backdrop-filter]
+          xl:duration-500
+          xl:ease-out
+
+          ${
+            isHeroVisible
+              ? `
+                xl:border-white/20
+                xl:bg-transparent
+                xl:shadow-none
+                xl:backdrop-blur-none
+              `
+              : `
+                xl:border-[var(--wine)]/15
+                xl:bg-[var(--ivory)]/90
+                xl:shadow-[0_22px_65px_rgba(42,13,21,.10)]
+                xl:backdrop-blur-2xl
+              `
+          }
+        `}
       >
         {/* =================================================
             BRAND
         ================================================== */}
+
         <Link
           href={`/${lang}`}
           onClick={() => setOpen(false)}
@@ -148,6 +211,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
           </div>
 
           {/* Divider only desktop */}
+
           <span
             aria-hidden="true"
             className="
@@ -158,6 +222,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
           />
 
           {/* Small identity only desktop */}
+
           <span
             className="
               hidden
@@ -195,6 +260,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
         {/* =================================================
             DESKTOP NAVIGATION
         ================================================== */}
+
         <nav
           aria-label={
             lang === "es"
@@ -272,6 +338,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
         {/* =================================================
             RIGHT ACTIONS
         ================================================== */}
+
         <div
           className="
             relative
@@ -284,6 +351,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
           "
         >
           {/* WHATSAPP */}
+
           <button
             type="button"
             disabled
@@ -331,6 +399,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
           </button>
 
           {/* LANGUAGE */}
+
           <div
             role="group"
             aria-label={lang === "es" ? "Idioma" : "Language"}
@@ -395,9 +464,8 @@ export default function Navbar({ lang, labels }: NavbarProps) {
 
           {/* =================================================
               HAMBURGER
-              Same 40x40 geometry as Diego's.
-              Responsive only.
           ================================================== */}
+
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
@@ -438,6 +506,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
       {/* =====================================================
           MOBILE / TABLET NAVIGATION
       ====================================================== */}
+
       {open && (
         <nav
           id="mobile-navigation"
