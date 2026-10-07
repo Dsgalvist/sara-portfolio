@@ -6,6 +6,9 @@ import Journey from "@/components/journey/Journey";
 import Contact from "@/components/contact/Contact";
 import About from "@/components/about/About";
 import Work from "@/components/work/Work";
+import WhatsAppFloating from "@/components/ui/WhatsAppFloating";
+import ScrollToTop from "@/components/ui/ScrollToTop";
+import PageLoader from "@/components/ui/PageLoader";
 
 type PageProps = {
   params: Promise<{
@@ -24,12 +27,15 @@ export default async function Home({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-[var(--ivory)] text-[var(--charcoal)]">
+        <PageLoader />
         <Navbar lang={lang} labels={t.nav} />
         <Hero lang={lang} content={t.hero} />
         <About lang={lang} />
         <Work lang={lang} />
         <Journey lang={lang} />
         <Contact lang={lang} />
+        <ScrollToTop />
+        <WhatsAppFloating lang={lang} />
     </main>
   );
 }

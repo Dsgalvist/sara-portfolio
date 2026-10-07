@@ -151,17 +151,17 @@ export default function Navbar({ lang, labels }: NavbarProps) {
           ${
             isHeroVisible
               ? `
-                xl:border-white/20
-                xl:bg-transparent
-                xl:shadow-none
-                xl:backdrop-blur-none
-              `
+                  xl:border-white/20
+                  xl:bg-transparent
+                  xl:shadow-none
+                  xl:backdrop-blur-none
+                `
               : `
-                xl:border-[var(--wine)]/15
-                xl:bg-[var(--ivory)]/90
-                xl:shadow-[0_22px_65px_rgba(42,13,21,.10)]
-                xl:backdrop-blur-2xl
-              `
+                  xl:border-[var(--wine)]/15
+                  xl:bg-[var(--ivory)]/90
+                  xl:shadow-[0_22px_65px_rgba(42,13,21,.10)]
+                  xl:backdrop-blur-2xl
+                `
           }
         `}
       >
@@ -352,30 +352,53 @@ export default function Navbar({ lang, labels }: NavbarProps) {
         >
           {/* WHATSAPP */}
 
-          <button
-            type="button"
-            disabled
-            aria-label="WhatsApp"
-            title="WhatsApp coming soon"
+          <a
+            href={`https://wa.me/18254885363?text=${encodeURIComponent(
+              lang === "es"
+                ? "Hola Sara, vi tu portafolio y me gustaría hablar contigo sobre un proyecto."
+                : "Hi Sara, I saw your portfolio and I'd like to talk with you about a project."
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={
+              lang === "es"
+                ? "Contactar por WhatsApp"
+                : "Contact on WhatsApp"
+            }
             className="
-              group
-              inline-flex h-10
-              shrink-0
-              cursor-default
-              items-center
-              justify-center
-              gap-2
-              rounded-lg
-              bg-[var(--wine)]
-              px-2.5
-              text-xs
-              font-semibold
-              text-[var(--ivory)]
+  group
 
-              sm:px-3
+  inline-flex h-10
+  shrink-0
 
-              xl:px-4
-            "
+  items-center
+  justify-center
+  gap-2
+
+  rounded-lg
+
+  bg-[var(--wine)]
+
+  px-2.5
+
+  text-xs
+  font-semibold
+  !text-white
+
+  shadow-[0_8px_20px_rgba(109,31,51,0.12)]
+
+  transition-[transform,box-shadow]
+  duration-300
+  ease-out
+
+  hover:-translate-y-1
+  hover:shadow-[0_14px_28px_rgba(109,31,51,0.22)]
+  hover:!text-white
+
+  sm:px-3
+
+  xl:px-4
+"
           >
             <WhatsAppIcon />
 
@@ -387,7 +410,10 @@ export default function Navbar({ lang, labels }: NavbarProps) {
               aria-hidden="true"
               className="
                 hidden
+
                 transition-transform
+                duration-300
+
                 group-hover:translate-x-0.5
                 group-hover:-translate-y-0.5
 
@@ -396,7 +422,7 @@ export default function Navbar({ lang, labels }: NavbarProps) {
             >
               ↗
             </span>
-          </button>
+          </a>
 
           {/* LANGUAGE */}
 
@@ -428,8 +454,8 @@ export default function Navbar({ lang, labels }: NavbarProps) {
 
                 ${
                   lang === "en"
-                    ? "bg-[var(--wine)] text-[var(--ivory)]"
-                    : "text-[var(--charcoal)]/55 hover:text-[var(--charcoal)]"
+                    ? "bg-[var(--wine)] !text-white"
+                    : "text-[var(--charcoal)] hover:text-[var(--charcoal)]"
                 }
               `}
             >
@@ -453,8 +479,8 @@ export default function Navbar({ lang, labels }: NavbarProps) {
 
                 ${
                   lang === "es"
-                    ? "bg-[var(--wine)] text-[var(--ivory)]"
-                    : "text-[var(--charcoal)]/55 hover:text-[var(--charcoal)]"
+                    ? "bg-[var(--wine)] !text-white"
+                    : "text-[var(--charcoal)] hover:text-[var(--charcoal)]"
                 }
               `}
             >
